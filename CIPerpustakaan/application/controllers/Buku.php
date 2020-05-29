@@ -40,7 +40,7 @@ class Buku extends CI_Controller {
 		);
 		$this->table->set_template($template);
 
-		$this->table->set_heading('ID Buku', 'Judul Buku','Penerbit','Pengarang','Kategori');
+		$this->table->set_heading('ID Buku', 'Judul Buku','Penerbit','Pengarang','Kategori', 'Detail', 'Edit', 'Delete');
 
 		$query=$this->Buku_Model->get_join();
 		foreach ($query->result() as $row)

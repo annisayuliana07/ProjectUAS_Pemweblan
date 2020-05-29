@@ -40,7 +40,7 @@ class Peminjaman extends CI_Controller {
 		);
 		$this->table->set_template($template);
 
-		$this->table->set_heading('ID Pinjam', 'Tanggal Pinjam','Tanggal Kembali','Nama Peminjam','Nama Buku','Nama Admin');
+		$this->table->set_heading('ID Pinjam', 'Tanggal Pinjam','Tanggal Kembali','Nama Peminjam','Nama Buku','Nama Admin', 'Detail', 'Edit', 'Delete');
 
 		$query=$this->Peminjaman_Model->get_join();
 		foreach ($query->result() as $row)
