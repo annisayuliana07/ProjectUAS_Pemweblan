@@ -40,7 +40,7 @@ class Anggota extends CI_Controller {
 		);
 		$this->table->set_template($template);
 
-		$this->table->set_heading('ID Anggota', 'Nama Anggota','Tanggal Lahir','Nomor Telepon','Alamat');
+		$this->table->set_heading('ID Anggota', 'Nama Anggota','Tanggal Lahir','Nomor Telepon','Alamat', 'Detail', 'Edit', 'Delete');
 
 		$query=$this->Anggota_Model->get_all();
 		foreach ($query->result() as $row)
