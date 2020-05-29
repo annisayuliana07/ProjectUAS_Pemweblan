@@ -101,5 +101,14 @@ class Anggota extends CI_Controller {
 		$this->Anggota_Model->DeleteData($where, 'anggota');
 		redirect('peminjaman/index');
 	}
+	
+	public function detail($id_anggota)
+	{
+		$this->load->model('Anggota_Model');
+		$detail=$this->Anggota_Model->detail_data($id_anggota);
+		$data['detail']=$detail;
+		
+		$this->template->display('perpustakaan/detailanggota', $data);
+	}
     
 }

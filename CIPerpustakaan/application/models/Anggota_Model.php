@@ -41,5 +41,10 @@ class Anggota_Model extends CI_Model {
 			$this->db->delete($table);
 		}
 		
+		public function detail_data($id_anggota = NULL)
+		{
+			$query=$this->db->get_where('anggota', array('id_anggota'=>$id_anggota))->row();
+			return $query;
+		}
 
 }
