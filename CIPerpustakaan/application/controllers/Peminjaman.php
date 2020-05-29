@@ -40,12 +40,12 @@ class Peminjaman extends CI_Controller {
 		);
 		$this->table->set_template($template);
 
-		$this->table->set_heading('ID Pinjam', 'Tanggal Pinjam','Tanggal Kembali','Nama Peminjam','Nama Buku','Nama Admin');
+		$this->table->set_heading('ID Pinjam', 'Tanggal Pinjam','Tanggal Kembali','Nama Peminjam','Nama Buku','Nama Admin', 'Detail', 'Edit', 'Delete');
 
 		$query=$this->Peminjaman_Model->get_join();
 		foreach ($query->result() as $row)
 		{
-			$this->table->add_row($row->id_pinjam,$row->tgl_pinjam,$row->tgl_kembali,$row->nama_anggota,$row->judul_buku,$row->username);
+			$this->table->add_row($row->id_pinjam,$row->tgl_pinjam,$row->tgl_kembali,$row->nama_anggota,$row->judul_buku,$row->username, anchor('peminjaman/detail/'. $row->id_pinjam, 'Detail'), anchor('peminjaman/edit/'. $row->id_pinjam, 'Edit'), anchor('peminjaman/delete/'. $row->id_pinjam, 'Delete'));
 		}
 
 		$data['tabel']= $this->table->generate();
@@ -97,6 +97,13 @@ class Peminjaman extends CI_Controller {
                 }
 
 
-    }            
+    }
+
+	public function delete($id_pinjam)
+	{
+		$where = array('id_pinjam' => $id_pinjam);
+		$this->Peminjaman_Model->DeleteData($where, 'peminjaman');
+		redirect('peminjaman/index');
+	}
     
 }

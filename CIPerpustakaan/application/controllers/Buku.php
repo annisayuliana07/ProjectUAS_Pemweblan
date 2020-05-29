@@ -40,12 +40,12 @@ class Buku extends CI_Controller {
 		);
 		$this->table->set_template($template);
 
-		$this->table->set_heading('ID Buku', 'Judul Buku','Penerbit','Pengarang','Kategori');
+		$this->table->set_heading('ID Buku', 'Judul Buku','Penerbit','Pengarang','Kategori', 'Detail', 'Edit', 'Delete');
 
 		$query=$this->Buku_Model->get_join();
 		foreach ($query->result() as $row)
 		{
-			$this->table->add_row($row->id_buku,$row->judul_buku,$row->penerbit,$row->pengarang,$row->jenis);
+			$this->table->add_row($row->id_buku,$row->judul_buku,$row->penerbit,$row->pengarang,$row->jenis, anchor('buku/detail/'. $row->id_buku, 'Detail'), anchor('buku/edit/'. $row->id_buku, 'Edit'), anchor('buku/delete/'. $row->id_buku, 'Delete'));
 		}
 
 		$data['tabel']= $this->table->generate();
@@ -93,6 +93,22 @@ class Buku extends CI_Controller {
                 }
 
 
-    }            
+    }
+
+	public function delete($id_buku)
+	{
+		$where = array('id_buku' => $id_buku);
+		$this->Buku_Model->DeleteData($where, 'buku');
+		redirect('buku/index');
+	}
+	
+	public function detail($id_buku)
+	{
+		$this->load->model('Buku_Model');
+		$detail=$this->Buku_Model->detail_data($id_buku);
+		$data['detail']=$detail;
+		
+		$this->template->display('perpustakaan/detailbuku', $data);
+	}
     
 }
