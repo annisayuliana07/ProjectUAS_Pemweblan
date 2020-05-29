@@ -45,7 +45,7 @@ class Anggota extends CI_Controller {
 		$query=$this->Anggota_Model->get_all();
 		foreach ($query->result() as $row)
 		{
-			$this->table->add_row($row->id_anggota,$row->nama_anggota,$row->tgl_lahir,$row->no_telp,$row->alamat);
+			$this->table->add_row($row->id_anggota,$row->nama_anggota,$row->tgl_lahir,$row->no_telp,$row->alamat, anchor('anggota/detail/'. $row->id_anggota, 'Detail'), anchor('anggota/edit/'. $row->id_anggota, 'Edit'), anchor('anggota/delete/'. $row->id_anggota, 'Delete'));
 		}
 
 		$data['tabel']= $this->table->generate();
