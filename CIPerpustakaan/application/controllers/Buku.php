@@ -93,6 +93,13 @@ class Buku extends CI_Controller {
                 }
 
 
-    }            
+    }
+
+	public function delete($id_buku)
+	{
+		$where = array('id_buku' => $id_buku);
+		$this->Buku_Model->DeleteData($where, 'buku');
+		redirect('buku/index');
+	}
     
 }

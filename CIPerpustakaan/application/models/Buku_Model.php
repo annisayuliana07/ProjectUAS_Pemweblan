@@ -49,5 +49,11 @@ class Buku_Model extends CI_Model {
 
                 $this->db->update('entries', $this, array('id' => $_POST['id']));
         }
+		
+		public function DeleteData($where, $table)
+		{
+			$this->db->where($where);
+			$this->db->delete($table);
+		}
 
 }
