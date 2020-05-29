@@ -93,6 +93,13 @@ class Anggota extends CI_Controller {
                 }
 
 
-    }            
+    }
+
+		public function delete($id_anggota)
+	{
+		$where = array('id_anggota' => $id_anggota);
+		$this->Anggota_Model->DeleteData($where, 'anggota');
+		redirect('peminjaman/index');
+	}
     
 }
