@@ -45,7 +45,7 @@ class Buku extends CI_Controller {
 		$query=$this->Buku_Model->get_join();
 		foreach ($query->result() as $row)
 		{
-			$this->table->add_row($row->id_buku,$row->judul_buku,$row->penerbit,$row->pengarang,$row->jenis);
+			$this->table->add_row($row->id_buku,$row->judul_buku,$row->penerbit,$row->pengarang,$row->jenis, anchor('buku/detail/'. $row->id_buku, 'Detail'), anchor('buku/edit/'. $row->id_buku, 'Edit'), anchor('buku/delete/'. $row->id_buku, 'Delete'));
 		}
 
 		$data['tabel']= $this->table->generate();
