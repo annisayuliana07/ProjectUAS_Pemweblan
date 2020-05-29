@@ -97,6 +97,13 @@ class Peminjaman extends CI_Controller {
                 }
 
 
-    }            
+    }
+
+	public function delete($id_pinjam)
+	{
+		$where = array('id_pinjam' => $id_pinjam);
+		$this->Peminjaman_Model->DeleteData($where, 'peminjaman');
+		redirect('peminjaman/index');
+	}
     
 }
