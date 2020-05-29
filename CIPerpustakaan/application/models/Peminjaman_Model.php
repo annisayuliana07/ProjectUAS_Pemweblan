@@ -58,5 +58,11 @@ class Peminjaman_Model extends CI_Model {
 			$this->db->where($where);
 			$this->db->delete($table);
 		}
+		
+		public function detail_data($id_pinjam = NULL)
+		{
+			$query=$this->db->get_where('peminjaman', array('id_pinjam'=>$id_pinjam))->row();
+			return $query;
+		}
 
 }
