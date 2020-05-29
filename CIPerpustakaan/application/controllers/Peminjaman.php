@@ -105,5 +105,14 @@ class Peminjaman extends CI_Controller {
 		$this->Peminjaman_Model->DeleteData($where, 'peminjaman');
 		redirect('peminjaman/index');
 	}
+	
+		public function detail($id_pinjam)
+	{
+		$this->load->model('Peminjaman_Model');
+		$detail=$this->Peminjaman_Model->detail_data($id_pinjam);
+		$data['detail']=$detail;
+		
+		$this->template->display('perpustakaan/detailpeminjaman', $data);
+	}
     
 }
