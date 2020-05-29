@@ -101,5 +101,14 @@ class Buku extends CI_Controller {
 		$this->Buku_Model->DeleteData($where, 'buku');
 		redirect('buku/index');
 	}
+	
+	public function detail($id_buku)
+	{
+		$this->load->model('Buku_Model');
+		$detail=$this->Buku_Model->detail_data($id_buku);
+		$data['detail']=$detail;
+		
+		$this->template->display('perpustakaan/detailbuku', $data);
+	}
     
 }
