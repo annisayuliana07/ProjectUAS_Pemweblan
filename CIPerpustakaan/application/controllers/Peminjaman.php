@@ -114,7 +114,7 @@ class Peminjaman extends CI_Controller {
 		
 		$this->template->display('perpustakaan/detailpeminjaman', $data);
 	}
-	
+  
 	public function edit($id_pinjam)
 	{
 		$where = array('id_pinjam' => $id_pinjam);
@@ -144,5 +144,4 @@ class Peminjaman extends CI_Controller {
 		$this->Peminjaman_Model->update_data($where, $data, 'peminjaman');
 		redirect ('peminjaman/index');
 	}
-    
 }

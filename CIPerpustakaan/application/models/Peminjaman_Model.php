@@ -7,15 +7,12 @@ class Peminjaman_Model extends CI_Model {
         public $id_anggota;
         public $id_buku;
         public $id_admin;
-        
-        
-        
+      
         public function insert_entry2($data)
         {
             $this->db->insert('peminjaman', $data);
         }
-
-        
+  
         public function get_join()
         {
             //$query = $this->db->get('mahasiswa');
@@ -29,12 +26,10 @@ class Peminjaman_Model extends CI_Model {
             
         }
 
-
         public function get_kategori()
         {
             $query = $this->db->get('kategori');
-            return $query;
-            
+            return $query    
         }
 
         public function get_buku()
@@ -64,11 +59,10 @@ class Peminjaman_Model extends CI_Model {
 			$query=$this->db->get_where('peminjaman', array('id_pinjam'=>$id_pinjam))->row();
 			return $query;
 		}
-		
+  
 		public function edit_data($where, $table)
 		{
-			return $this->db->get_where($table, $where);
-			
+			return $this->db->get_where($table, $where);	
 		}
 		
 		public function update_data($where, $data, $table)
@@ -76,5 +70,4 @@ class Peminjaman_Model extends CI_Model {
 			$this->db->where($where);
 			$this->db->update($table, $data);	
 		}
-
 }
