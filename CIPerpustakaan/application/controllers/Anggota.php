@@ -101,7 +101,14 @@ class Anggota extends CI_Controller {
 		$this->Anggota_Model->DeleteData($where, 'anggota');
 		redirect('peminjaman/index');
 	}
-	
+	public function edit($id_anggota)
+	{
+		$where = array('id_anggota' => $id_anggota);
+		$data['Anggota'] = $this->Anggota_Model->edit_data($where, 'anggota')->result();
+		
+		$this->template->display('perpustakaan/editanggota', $data);
+	}
+    
 	public function detail($id_anggota)
 	{
 		$this->load->model('Anggota_Model');
@@ -110,5 +117,26 @@ class Anggota extends CI_Controller {
 		
 		$this->template->display('perpustakaan/detailanggota', $data);
 	}
-    
+	
+	public function update()
+	{
+		$id_anggota = $this->input->post('id_anggota');
+		$nama_anggota = $this->input->post('nama_anggota');
+		$tgl_lahir = $this->input->post('tgl_lahir');
+		$alamat = $this->input->post('alamat');
+	
+		$data = array(
+		'nama_anggota' => $nama_anggota,
+		'tgl_lahir' => $tgl_lahir,
+		'alamat' => $alamat
+		);
+		
+		$where = array(
+		'id_anggota' => $id_anggota
+		);
+		
+		$this->Anggota_Model->update_data($where, $data, 'anggota');
+		redirect ('anggota/index');
+	}
+
 }

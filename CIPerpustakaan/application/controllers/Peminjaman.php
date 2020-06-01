@@ -114,5 +114,34 @@ class Peminjaman extends CI_Controller {
 		
 		$this->template->display('perpustakaan/detailpeminjaman', $data);
 	}
-    
+  
+	public function edit($id_pinjam)
+	{
+		$where = array('id_pinjam' => $id_pinjam);
+		$data['Peminjaman'] = $this->Peminjaman_Model->edit_data($where, 'peminjaman')->result();
+		
+		$this->template->display('perpustakaan/editpeminjaman', $data);
+	}
+	
+    public function update()
+	{
+		$id_pinjam = $this->input->post('id_pinjam');
+		$tgl_pinjam = $this->input->post('tgl_pinjam');
+		$tgl_kembali = $this->input->post('tgl_kembali');
+		$jumlah_buku = $this->input->post('jumlah_buku');
+	
+		$data = array(
+		'tgl_pinjam' => $tgl_pinjam,
+		'tgl_kembali' => $tgl_kembali,
+		'jumlah_buku' => $jumlah_buku
+
+		);
+		
+		$where = array(
+		'id_pinjam' => $id_pinjam
+		);
+		
+		$this->Peminjaman_Model->update_data($where, $data, 'peminjaman');
+		redirect ('peminjaman/index');
+	}
 }

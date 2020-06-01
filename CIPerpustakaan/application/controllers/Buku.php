@@ -110,5 +110,34 @@ class Buku extends CI_Controller {
 		
 		$this->template->display('perpustakaan/detailbuku', $data);
 	}
-    
+	
+	public function edit($id_buku)
+	{
+		$where = array('id_buku' => $id_buku);
+		$data['Buku'] = $this->Buku_Model->edit_data($where, 'buku')->result();
+		
+		$this->template->display('perpustakaan/editbuku', $data);
+	}
+	
+  	public function update()
+	{
+		$id_buku = $this->input->post('id_buku');
+		$judul_buku = $this->input->post('judul_buku');
+		$penerbit = $this->input->post('penerbit');
+		$pengarang = $this->input->post('pengarang');
+		$id_kategori = $this->input->post('id_kategori');
+	
+		$data = array(
+		'judul_buku' => $judul_buku,
+		'penerbit' => $penerbit,
+		'pengarang' => $pengarang
+		);
+		
+		$where = array(
+		'id_buku' => $id_buku
+		);
+		
+		$this->Buku_Model->update_data($where, $data, 'buku');
+		redirect ('buku/index');
+	}
 }
