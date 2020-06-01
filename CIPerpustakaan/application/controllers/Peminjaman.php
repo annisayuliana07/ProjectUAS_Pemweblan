@@ -40,12 +40,12 @@ class Peminjaman extends CI_Controller {
 		);
 		$this->table->set_template($template);
 
-		$this->table->set_heading('ID Pinjam', 'Tanggal Pinjam','Tanggal Kembali','Nama Peminjam','Nama Buku','Nama Admin');
+		$this->table->set_heading('ID Pinjam', 'Tanggal Pinjam','Tanggal Kembali','Nama Peminjam','Nama Buku','Nama Admin', 'Detail', 'Edit', 'Delete');
 
 		$query=$this->Peminjaman_Model->get_join();
 		foreach ($query->result() as $row)
 		{
-			$this->table->add_row($row->id_pinjam,$row->tgl_pinjam,$row->tgl_kembali,$row->nama_anggota,$row->judul_buku,$row->username);
+			$this->table->add_row($row->id_pinjam,$row->tgl_pinjam,$row->tgl_kembali,$row->nama_anggota,$row->judul_buku,$row->username, anchor('peminjaman/detail/'. $row->id_pinjam, 'Detail'), anchor('peminjaman/edit/'. $row->id_pinjam, 'Edit'), anchor('peminjaman/delete/'. $row->id_pinjam, 'Delete'));
 		}
 
 		$data['tabel']= $this->table->generate();
@@ -91,12 +91,57 @@ class Peminjaman extends CI_Controller {
 								$this->Peminjaman_Model->insert_entry2($data);			
 								
 								//$this->load->view('mahasiswa/formsuccess', $data2);
-								$this->template->display('perpustakaan/formsuccess', $data);
+								$this->template->display('perpustakaan/formsuccesspeminjaman', $data);
 								redirect('/peminjaman');
 						
                 }
 
 
-    }            
-    
+    }
+
+	public function delete($id_pinjam)
+	{
+		$where = array('id_pinjam' => $id_pinjam);
+		$this->Peminjaman_Model->DeleteData($where, 'peminjaman');
+		redirect('peminjaman/index');
+	}
+	
+		public function detail($id_pinjam)
+	{
+		$this->load->model('Peminjaman_Model');
+		$detail=$this->Peminjaman_Model->detail_data($id_pinjam);
+		$data['detail']=$detail;
+		
+		$this->template->display('perpustakaan/detailpeminjaman', $data);
+	}
+  
+	public function edit($id_pinjam)
+	{
+		$where = array('id_pinjam' => $id_pinjam);
+		$data['Peminjaman'] = $this->Peminjaman_Model->edit_data($where, 'peminjaman')->result();
+		
+		$this->template->display('perpustakaan/editpeminjaman', $data);
+	}
+	
+    public function update()
+	{
+		$id_pinjam = $this->input->post('id_pinjam');
+		$tgl_pinjam = $this->input->post('tgl_pinjam');
+		$tgl_kembali = $this->input->post('tgl_kembali');
+		$jumlah_buku = $this->input->post('jumlah_buku');
+	
+		$data = array(
+		'tgl_pinjam' => $tgl_pinjam,
+		'tgl_kembali' => $tgl_kembali,
+		'jumlah_buku' => $jumlah_buku
+
+		);
+		
+		$where = array(
+		'id_pinjam' => $id_pinjam
+		);
+		
+		$this->Peminjaman_Model->update_data($where, $data, 'peminjaman');
+		redirect ('peminjaman/index');
+	}
 }

@@ -34,5 +34,28 @@ class Anggota_Model extends CI_Model {
 
                 $this->db->update('entries', $this, array('id' => $_POST['id']));
         }
-
+		
+		public function DeleteData($where, $table)
+		{
+			$this->db->where($where);
+			$this->db->delete($table);
+		}
+		
+		public function detail_data($id_anggota = NULL)
+		{
+			$query=$this->db->get_where('anggota', array('id_anggota'=>$id_anggota))->row();
+			return $query;
+		}
+		
+		public function edit_data($where, $table)
+		{
+			return $this->db->get_where($table, $where);
+			
+		}
+		
+		public function update_data($where, $data, $table)
+		{
+			$this->db->where($where);
+			$this->db->update($table, $data);	
+		}
 }

@@ -40,12 +40,12 @@ class Anggota extends CI_Controller {
 		);
 		$this->table->set_template($template);
 
-		$this->table->set_heading('ID Anggota', 'Nama Anggota','Tanggal Lahir','Nomor Telepon','Alamat');
+		$this->table->set_heading('ID Anggota', 'Nama Anggota','Tanggal Lahir','Nomor Telepon','Alamat', 'Detail', 'Edit', 'Delete');
 
 		$query=$this->Anggota_Model->get_all();
 		foreach ($query->result() as $row)
 		{
-			$this->table->add_row($row->id_anggota,$row->nama_anggota,$row->tgl_lahir,$row->no_telp,$row->alamat);
+			$this->table->add_row($row->id_anggota,$row->nama_anggota,$row->tgl_lahir,$row->no_telp,$row->alamat, anchor('anggota/detail/'. $row->id_anggota, 'Detail'), anchor('anggota/edit/'. $row->id_anggota, 'Edit'), anchor('anggota/delete/'. $row->id_anggota, 'Delete'));
 		}
 
 		$data['tabel']= $this->table->generate();
@@ -87,12 +87,56 @@ class Anggota extends CI_Controller {
 								$this->Anggota_Model->insert_entry2($data);			
 								
 								//$this->load->view('mahasiswa/formsuccess', $data2);
-								$this->template->display('perpustakaan/formsuccess', $data);
+								$this->template->display('perpustakaan/formsuccessanggota', $data);
 								redirect('/Anggota');
 						
                 }
 
 
-    }            
+    }
+
+		public function delete($id_anggota)
+	{
+		$where = array('id_anggota' => $id_anggota);
+		$this->Anggota_Model->DeleteData($where, 'anggota');
+		redirect('peminjaman/index');
+	}
+	public function edit($id_anggota)
+	{
+		$where = array('id_anggota' => $id_anggota);
+		$data['Anggota'] = $this->Anggota_Model->edit_data($where, 'anggota')->result();
+		
+		$this->template->display('perpustakaan/editanggota', $data);
+	}
     
+	public function detail($id_anggota)
+	{
+		$this->load->model('Anggota_Model');
+		$detail=$this->Anggota_Model->detail_data($id_anggota);
+		$data['detail']=$detail;
+		
+		$this->template->display('perpustakaan/detailanggota', $data);
+	}
+	
+	public function update()
+	{
+		$id_anggota = $this->input->post('id_anggota');
+		$nama_anggota = $this->input->post('nama_anggota');
+		$tgl_lahir = $this->input->post('tgl_lahir');
+		$alamat = $this->input->post('alamat');
+	
+		$data = array(
+		'nama_anggota' => $nama_anggota,
+		'tgl_lahir' => $tgl_lahir,
+		'alamat' => $alamat
+		);
+		
+		$where = array(
+		'id_anggota' => $id_anggota
+		);
+		
+		$this->Anggota_Model->update_data($where, $data, 'anggota');
+		redirect ('anggota/index');
+	}
+
 }

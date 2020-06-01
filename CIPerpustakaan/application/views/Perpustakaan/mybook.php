@@ -8,7 +8,7 @@
 
 <?php echo $error;?>
 
-<?php echo form_open_multipart('perpustakaan/inputbuku');?>
+<?php echo form_open_multipart('buku/inputbuku');?>
 
 <?php //echo form_open('mahasiswa/inputmhs'); ?>
 
