@@ -87,7 +87,7 @@ class Anggota extends CI_Controller {
 								$this->Anggota_Model->insert_entry2($data);			
 								
 								//$this->load->view('mahasiswa/formsuccess', $data2);
-								$this->template->display('perpustakaan/formsuccess', $data);
+								$this->template->display('perpustakaan/formsuccessanggota', $data);
 								redirect('/Anggota');
 						
                 }

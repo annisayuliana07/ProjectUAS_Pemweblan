@@ -87,7 +87,7 @@ class Buku extends CI_Controller {
 								$this->Buku_Model->insert_entry2($data);			
 								
 								//$this->load->view('mahasiswa/formsuccess', $data2);
-								$this->template->display('perpustakaan/formsuccess', $data);
+								$this->template->display('perpustakaan/formsuccessbuku', $data);
 								redirect('/Buku');
 						
                 }
