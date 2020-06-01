@@ -29,7 +29,7 @@ class Peminjaman_Model extends CI_Model {
         public function get_kategori()
         {
             $query = $this->db->get('kategori');
-            return $query;
+            return $query    
         }
 
         public function get_buku()
