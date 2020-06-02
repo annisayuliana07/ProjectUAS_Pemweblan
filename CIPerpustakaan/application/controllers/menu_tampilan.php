@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dasbor extends CI_Controller
+class menu_tampilan extends CI_Controller
 {
 
 	// Index login
@@ -19,7 +19,7 @@ class Dasbor extends CI_Controller
 	{
 		$data = array(
 			'title'	=> 'Halaman Dasbor',
-			'isi'	=> 'perpustakaan/dasbor_view'
+			'isi'	=> 'perpustakaan/menutampilan_view'
 		);
 		//$this->load->view('layout/wrapper',$data);
 		$this->template->display('layout/wrapper', $data);
