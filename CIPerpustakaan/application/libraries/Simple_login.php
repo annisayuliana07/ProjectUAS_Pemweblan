@@ -19,7 +19,7 @@ class Simple_login
 			$this->CI->session->set_userdata('username', $username);
 			$this->CI->session->set_userdata('id_login', uniqid(rand()));
 			$this->CI->session->set_userdata('status', "login");
-			redirect('dasbor'); //redirect ke controller
+			redirect('menu_tampilan'); //redirect ke controller
 		} else {
 			$this->CI->session->set_flashdata('sukses', 'Oops... Username/password salah');
 			redirect('login'); //redirect ke controller
