@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Anggota extends CI_Controller {
+class Anggota extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -21,122 +22,110 @@ class Anggota extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->library('template');
-		$this->load->helper(array('form', 'url','html'));//pendefinisian helper form lebih dari satu
-		$this->load->library(array('form_validation','table'));
-		$this->load->model(array('Anggota_Model'));
-		$this->load->database();
-		//$this->load->library('table');
-
 	}
-	
-	 public function index()
+	public function index()
 	{
-		
-		echo "<h2>Tampilan list Anggota</h2>";
-
-		$template = array(
-		'table_open' => '<table border="1" cellpadding="2" cellspacing="1" class="mytable">'
-		);
-		$this->table->set_template($template);
-
-		$this->table->set_heading('ID Anggota', 'Nama Anggota','Tanggal Lahir','Nomor Telepon','Alamat', 'Detail', 'Edit', 'Delete');
-
-		$query=$this->Anggota_Model->get_all();
-		foreach ($query->result() as $row)
-		{
-			$this->table->add_row($row->id_anggota,$row->nama_anggota,$row->tgl_lahir,$row->no_telp,$row->alamat, anchor('anggota/detail/'. $row->id_anggota, 'Detail'), anchor('anggota/edit/'. $row->id_anggota, 'Edit'), anchor('anggota/delete/'. $row->id_anggota, 'Delete'));
-		}
-
-		$data['tabel']= $this->table->generate();
-		$this->template->display('perpustakaan/listanggota',$data);
-
-		
+		$data['anggota'] = $this->db->get('anggota')->result_array();
+		$data['title'] = 'List Anggota';
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('templates/topbar', $data);
+		$this->load->view('anggota/index', $data);
+		$this->load->view('templates/footer');
 	}
+
 	public function inputanggota()
 	{
-		
-				$this->load->helper('date');
+		$data['title'] = 'Input Anggota';
 
-                $this->form_validation->set_rules('id_anggota', 'ID Anggota', 'trim|required');
-                $this->form_validation->set_rules('nama_anggota', 'Nama Anggota', 'trim|required');
-                $this->form_validation->set_rules('tgl_lahir', 'tanggal Lahir', 'trim|required');
-                $this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'trim|required');
-                $this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
-                				
+		$this->load->helper('date');
 
-                if ($this->form_validation->run() == FALSE)//definisi validasi misal email, pass
-                {
-					$data['error']=' ';
-					
-					
-					//$this->load->view('mahasiswa/myform', $data);
-					$this->template->display('perpustakaan/myanggota', $data);
-                }
-                else
-                {
-						
-								
-								$data ['id_anggota']	=$_POST['id_anggota'];
-								$data ['nama_anggota']	=$_POST['nama_anggota'];
-								$data ['tgl_lahir']		=$_POST['tgl_lahir'];
-								$data ['no_telp']		=$_POST['no_telp'];
-								$data ['alamat']		=$_POST['alamat'];
-
-		
-								$this->Anggota_Model->insert_entry2($data);			
-								
-								//$this->load->view('mahasiswa/formsuccess', $data2);
-								$this->template->display('perpustakaan/formsuccessanggota', $data);
-								redirect('/Anggota');
-						
-                }
+		$this->form_validation->set_rules('id_anggota', 'ID Anggota', 'trim|required');
+		$this->form_validation->set_rules('nama_anggota', 'Nama Anggota', 'trim|required');
+		$this->form_validation->set_rules('tgl_lahir', 'tanggal Lahir', 'trim|required');
+		$this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'trim|required');
+		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
 
 
-    }
+		if ($this->form_validation->run() == FALSE) //definisi validasi misal email, pass
+		{
+			$data['error'] = ' ';
 
-		public function delete($id_anggota)
+
+			//$this->load->view('mahasiswa/myform', $data);
+			$this->load->view('templates/header', $data);
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('templates/topbar', $data);
+			$this->load->view('perpustakaan/myanggota', $data);
+			$this->load->view('templates/footer');
+		} else {
+
+
+			$data['id_anggota']	= $_POST['id_anggota'];
+			$data['nama_anggota']	= $_POST['nama_anggota'];
+			$data['tgl_lahir']		= $_POST['tgl_lahir'];
+			$data['no_telp']		= $_POST['no_telp'];
+			$data['alamat']		= $_POST['alamat'];
+
+
+			$this->Anggota_Model->insert_entry2($data);
+			redirect('/Anggota');
+		}
+	}
+
+	public function delete($id_anggota)
 	{
 		$where = array('id_anggota' => $id_anggota);
 		$this->Anggota_Model->DeleteData($where, 'anggota');
-		redirect('peminjaman/index');
+		redirect('anggota');
 	}
 	public function edit($id_anggota)
 	{
+		$data['title'] = 'Edit Anggota';
 		$where = array('id_anggota' => $id_anggota);
 		$data['Anggota'] = $this->Anggota_Model->edit_data($where, 'anggota')->result();
-		
-		$this->template->display('perpustakaan/editanggota', $data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('templates/topbar', $data);
+		$this->load->view('perpustakaan/editanggota', $data);
+		$this->load->view('templates/footer');
+
+
+		//$this->template->display('perpustakaan/editanggota', $data);
 	}
-    
+
 	public function detail($id_anggota)
 	{
+
 		$this->load->model('Anggota_Model');
-		$detail=$this->Anggota_Model->detail_data($id_anggota);
-		$data['detail']=$detail;
-		
-		$this->template->display('perpustakaan/detailanggota', $data);
+		$detail = $this->Anggota_Model->detail_data($id_anggota);
+		$data['detail'] = $detail;
+		$data['title'] = 'Detail Anggota';
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('templates/topbar', $data);
+		$this->load->view('perpustakaan/detailanggota', $data);
+		$this->load->view('templates/footer');
 	}
-	
+
 	public function update()
 	{
 		$id_anggota = $this->input->post('id_anggota');
 		$nama_anggota = $this->input->post('nama_anggota');
 		$tgl_lahir = $this->input->post('tgl_lahir');
 		$alamat = $this->input->post('alamat');
-	
-		$data = array(
-		'nama_anggota' => $nama_anggota,
-		'tgl_lahir' => $tgl_lahir,
-		'alamat' => $alamat
-		);
-		
-		$where = array(
-		'id_anggota' => $id_anggota
-		);
-		
-		$this->Anggota_Model->update_data($where, $data, 'anggota');
-		redirect ('anggota/index');
-	}
 
+		$data = array(
+			'nama_anggota' => $nama_anggota,
+			'tgl_lahir' => $tgl_lahir,
+			'alamat' => $alamat
+		);
+
+		$where = array(
+			'id_anggota' => $id_anggota
+		);
+
+		$this->Anggota_Model->update_data($where, $data, 'anggota');
+		redirect('anggota/');
+	}
 }
