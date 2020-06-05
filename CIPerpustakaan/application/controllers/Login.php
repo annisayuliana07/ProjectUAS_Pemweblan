@@ -1,64 +1,40 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
-
+error_reporting(1);
 class Login extends CI_Controller
 {
+
+    // Index login
+
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper(array('form', 'url', 'html')); //pendefinisian helper form lebih dari satu
-        $this->load->library(array('form_validation', 'session'));
+        $this->load->helper(array('form', 'url', 'html'));
+        $this->load->library(array('form_validation', 'table', 'simple_login', 'session')); //ini hanya untuk satu library, kalo mau dua dibikin kayak helper
         $this->load->model('Admin_Model');
-        $this->load->database();
+        $this->load->database(); //library
     }
 
     public function index()
     {
+        // Fungsi Login
+        $valid = $this->form_validation;
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
+        $valid->set_rules('username', 'Username');
+        $valid->set_rules('password', 'Password');
+        if ($valid->run()) {
+            $this->simple_login->login($username, $password);
+        }
+        // End fungsi login
+        $data = array('title'    => 'Halaman Login Administrator');
+        //$this->load->view('login_view',$data);
         $this->load->view('perpustakaan/login_view');
     }
 
-    public function proses_login()
-    {
-        $this->form_validation->set_rules('username', 'username', 'required');
-        $this->form_validation->set_rules('password', 'password', 'required');
-
-        if ($this->form_validation->run() == FALSE) {
-            $this->load->view('perpustakaan/login_view');
-        } else {
-            $username = $this->input->post('username');
-            $password = $this->input->post('password');
-
-
-            $user = $username;
-            $pass = $password;
-
-            $cek = $this->Admin_Model->cek_login($user, $pass);
-
-            if ($cek->num_rows > 0) {
-
-                foreach ($cek->result() as $ck) {
-                    $sess_data['username'] = $ck->username;
-                    $sess_data['id_admin'] = $ck->id_admin;
-
-                    $this->session->set_userdata($sess_data);
-                }
-                if ($sess_data['id_admin'] == $id_admin) { //apabila id_admin sama dengan yang di database maka redirect ke menu tampilan
-                    redirect('menu_tampilan');
-                } else { //apabila pass tidak cocok di redirect ulang ke form login
-                    $this->session->set_flashdata('pesan', 'Maaf Username dan Password Salah');
-                    redirect('Login');
-                }
-            } else { //apabila pass dan username yang dimasukkan tidak cocok maka redirect ulang ke login
-                $this->session->set_flashdata('pesan', 'Maaf Username dan Password Salah');
-                redirect('Login');
-            }
-        }
-    }
-
+    // Logout di sini
     public function logout()
     {
-        $this->session->sess_destroy();
-        redirect('Login');
+        $this->simple_login->logout();
     }
 }

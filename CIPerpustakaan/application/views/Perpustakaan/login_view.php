@@ -38,21 +38,21 @@
                     <span class="login100-form-title-1">
                         Welcome Admin!
                     </span>
-
                 </div>
 
-                <form class="login100-form validate-form" method="post" action="<?= base_url('Login/proses_login') ?>">
-                    <div class=" wrap-input100 validate-input m-b-26" data-validate="Username is required">
+                <form class="login100-form validate-form" action="<?php echo base_url('Login/cek_login') ?>" method="post">
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
                         <span class="label-input100">Username</span>
-                        <input class="input100" type="text" placeholder="Enter username" name="username">
-
+                        <input class="input100" type="text" name="username" placeholder="Enter username">
+                        <span class="focus-input100"></span>
+                        <p><?php echo form_error('username'); ?></p>
                     </div>
 
                     <div class="wrap-input100 validate-input m-b-18" data-validate="Password is required">
                         <span class="label-input100">Password</span>
-                        <input class="input100" type="password" placeholder="Enter password" name="password">
-
-
+                        <input class="input100" type="password" name="pass" placeholder="Enter password">
+                        <span class="focus-input100"></span>
+                        <p><?php echo form_error('password'); ?></p>
                     </div>
 
                     <div class="container-login100-form-btn mx-4">
