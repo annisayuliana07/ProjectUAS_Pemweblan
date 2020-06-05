@@ -15,11 +15,11 @@ class Simple_login
 		if ($query->num_rows() == 1) {
 			$row 	= $this->CI->db->query('SELECT username FROM admin where username = "' . $username . '"');
 			$admin 	= $row->row();
-			$email 	= $admin->email;
+			$usename 	= $admin->usename;
 			$this->CI->session->set_userdata('username', $username);
 			$this->CI->session->set_userdata('id_login', uniqid(rand()));
 			$this->CI->session->set_userdata('status', "login");
-			redirect('menu_tampilan'); //redirect ke controller
+			redirect('home'); //redirect ke controller
 		} else {
 			$this->CI->session->set_flashdata('sukses', 'Oops... Username/password salah');
 			redirect('login'); //redirect ke controller
@@ -29,7 +29,7 @@ class Simple_login
 	// Proteksi halaman
 	public function cek_login()
 	{
-		if ($this->CI->session->userdata('username') == '') {
+		if ($this->CI->session->userdata('username') == $username) {
 			$this->CI->session->set_flashdata('sukses', 'Anda belum login');
 			redirect('login');
 		}
