@@ -1,27 +1,19 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-defined('BASEPATH') or exit('No direct script access allowed');
-error_reporting(1);
 class Login extends CI_Controller
 {
-
-    // Index login
-
-
     public function __construct()
     {
         parent::__construct();
         $this->load->helper(array('form', 'url', 'html'));
-
-        $this->load->library(array('form_validation', 'table', 'simple_login', 'session')); //ini hanya untuk satu library, kalo mau dua dibikin kayak helper
-        $this->load->model('Admin_Model');
-        $this->load->database(); //library
-
+        $this->load->library(array('form_validation', 'session','simple_login'));
+        $this->load->model(array('Admin_Model'));
+        $this->load->database();
     }
 
     public function index()
     {
-
         $username = $this->input->post('username');
 		$password = $this->input->post('password');
         $this->form_validation->set_rules('username', 'username', 'required');
@@ -38,12 +30,8 @@ class Login extends CI_Controller
     }
 
 
-  
-
-    // Logout di sini
     public function logout()
     {
-        $this->simple_login->logout();
-
+        $this->simple_login->logout();	
     }
 }

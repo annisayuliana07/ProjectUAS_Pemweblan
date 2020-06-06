@@ -9,12 +9,10 @@ class Peminjaman_Model extends CI_Model
     public $id_buku;
     public $id_admin;
 
-
     public function insert_entry2($data)
     {
         $this->db->insert('peminjaman', $data);
     }
-
 
     public function get_join()
     {
