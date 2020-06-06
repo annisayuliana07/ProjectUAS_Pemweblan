@@ -1,5 +1,7 @@
 <?php
+
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 
 class Login extends CI_Controller
 {
@@ -7,7 +9,9 @@ class Login extends CI_Controller
     {
         parent::__construct();
         $this->load->helper(array('form', 'url', 'html'));
+
         $this->load->library(array('form_validation', 'session','simple_login'));
+
         $this->load->model(array('Admin_Model'));
         $this->load->database();
     }
@@ -33,5 +37,6 @@ class Login extends CI_Controller
     public function logout()
     {
         $this->simple_login->logout();	
+
     }
 }

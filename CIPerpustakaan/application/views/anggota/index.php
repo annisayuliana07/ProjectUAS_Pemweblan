@@ -1,4 +1,6 @@
+
 <?php $this->simple_login->cek_login(); ?>
+
 <?php
 $query = $this->Anggota_Model->get_all();
 foreach ($query->result() as $row) {

@@ -1,4 +1,5 @@
 <?php $this->simple_login->cek_login(); ?>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
