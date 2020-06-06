@@ -28,9 +28,13 @@ class Buku extends CI_Controller
 		$this->load->library(array('form_validation','table','simple_login','session'));
 		$this->load->model(array('Buku_Model','Kategori_Model'));
 		$this->load->database();
+
+
 	}
-	public function index()
+	
+	 public function index()
 	{
+
 		$data['buku'] = $this->db->get('buku')->result_array();
 		$data['title'] = 'List Buku';
 		$this->load->view('templates/header', $data);
@@ -38,7 +42,6 @@ class Buku extends CI_Controller
 		$this->load->view('templates/topbar', $data);
 		$this->load->view('buku/index', $data);
 		$this->load->view('templates/footer');
-
 	}
 	public function inputbuku()
 	{
@@ -49,6 +52,7 @@ class Buku extends CI_Controller
 		$this->form_validation->set_rules('penerbit', 'Penerbit', 'trim|required');
 		$this->form_validation->set_rules('pengarang', 'Pengarang', 'trim|required');
 		$this->form_validation->set_rules('id_kategori', 'ID Kategori', 'trim|required');
+
 
 		if ($this->form_validation->run() == FALSE) //definisi validasi misal email, pass
 		{

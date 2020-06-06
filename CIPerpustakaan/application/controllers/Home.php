@@ -6,10 +6,8 @@ class Home extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-
         $this->load->helper(array('form', 'url','html'));//pendefinisian helper form lebih dari satu
 		$this->load->library(array('form_validation','table','simple_login','session'));
-
     }
 
     public function index()

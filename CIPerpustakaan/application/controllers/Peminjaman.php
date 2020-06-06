@@ -20,7 +20,6 @@ class Peminjaman extends CI_Controller
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -32,7 +31,6 @@ class Peminjaman extends CI_Controller
 		
 
     }
-
 	public function index()
 	{
 		$data['peminjaman'] = $this->db->get('peminjaman')->result_array();
@@ -67,8 +65,6 @@ class Peminjaman extends CI_Controller
 
 	public function inputpeminjaman()
 	{
-
-
 
 
 
