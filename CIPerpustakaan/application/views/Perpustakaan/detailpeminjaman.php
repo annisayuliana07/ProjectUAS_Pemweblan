@@ -1,11 +1,12 @@
 <html>
 
 <head>
-	<title>Detail Buku</title>
+	<title>Detail Peminjaman</title>
 </head>
 
 <body>
-	<h4>Detail Buku</h4>
+	<h4>Detail Peminjaman</h4>
+
 	<table class="table">
 
 		<tr>

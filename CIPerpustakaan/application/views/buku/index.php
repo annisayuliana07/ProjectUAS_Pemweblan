@@ -24,22 +24,25 @@ $data['tabel'] = $this->table->generate();
         </tr>
     </thead>
     <tbody>
-        <?php $i = 1; ?>
-        <?php foreach ($buku as $b) : ?>
+
+		<?php
+		$count = 0;
+		foreach ($query->result() as $row) :
+			$count++;
+		?>
             <tr>
-                <th scope="row"><?= $i; ?></th>
-                <td><?= $b['id_buku']; ?></td>
-                <td><?= $b['judul_buku']; ?></td>
-                <td><?= $b['penerbit']; ?></td>
-                <td><?= $b['pengarang']; ?></td>
-                <td><?= $b['id_kategori']; ?></td>
+                <td><?php echo $count; ?></td>
+                <td><?= $row->id_buku; ?></td>
+                <td><?= $row->judul_buku; ?></td>
+                <td><?= $row->penerbit; ?></td>
+                <td><?= $row->pengarang; ?></td>
+                <td><?= $row->jenis; ?></td>
                 <td>
-                    <a href="<?= base_url('buku/detail/' . $b['id_buku']) ?>" class="badge badge-warning">detail</a>
-                    <a href="<?= base_url('buku/edit/' . $b['id_buku']) ?>" class="badge badge-success">edit</a>
-                    <a href="<?= base_url('buku/delete/' . $b['id_buku']) ?>" class="badge badge-danger">delete</a>
+                    <a href="<?= base_url('buku/detail/' . $row->id_buku) ?>" class="badge badge-warning">detail</a>
+                    <a href="<?= base_url('buku/edit/' . $row->id_buku) ?>" class="badge badge-success">edit</a>
+                    <a href="<?= base_url('buku/delete/' . $row->id_buku) ?>" class="badge badge-danger">delete</a>
                 </td>
             </tr>
-            <?php $i++; ?>
         <?php endforeach; ?>
     </tbody>
 </table>
