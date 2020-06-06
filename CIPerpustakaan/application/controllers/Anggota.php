@@ -22,12 +22,10 @@ class Anggota extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
 		$this->load->helper(array('form', 'url','html'));//pendefinisian helper form lebih dari satu
 		$this->load->library(array('form_validation','table','simple_login','session'));
 		$this->load->model('Anggota_Model');
 		$this->load->database();
-
 	}
 	public function index()
 	{
@@ -43,7 +41,6 @@ class Anggota extends CI_Controller
 	public function inputanggota()
 	{
 
-
 		$this->load->helper('date');
 
 		$this->form_validation->set_rules('id_anggota', 'ID Anggota', 'trim|required');
@@ -51,7 +48,6 @@ class Anggota extends CI_Controller
 		$this->form_validation->set_rules('tgl_lahir', 'tanggal Lahir', 'trim|required');
 		$this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'trim|required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
-
 
 
 		if ($this->form_validation->run() == FALSE) //definisi validasi misal email, pass
@@ -68,13 +64,11 @@ class Anggota extends CI_Controller
 		} else {
 
 
-
 			$data['id_anggota']	= $_POST['id_anggota'];
 			$data['nama_anggota']	= $_POST['nama_anggota'];
 			$data['tgl_lahir']		= $_POST['tgl_lahir'];
 			$data['no_telp']		= $_POST['no_telp'];
 			$data['alamat']		= $_POST['alamat'];
-
 
 
 			$this->Anggota_Model->insert_entry2($data);
@@ -122,11 +116,13 @@ class Anggota extends CI_Controller
 		$id_anggota = $this->input->post('id_anggota');
 		$nama_anggota = $this->input->post('nama_anggota');
 		$tgl_lahir = $this->input->post('tgl_lahir');
+		$no_telp = $this->input->post('no_telp');
 		$alamat = $this->input->post('alamat');
 
 		$data = array(
 			'nama_anggota' => $nama_anggota,
 			'tgl_lahir' => $tgl_lahir,
+			'no_telp'=>$no_telp,
 			'alamat' => $alamat
 		);
 
