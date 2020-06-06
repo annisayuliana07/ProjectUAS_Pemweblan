@@ -6,6 +6,7 @@
 
 <body>
 	<h4>Detail Peminjaman</h4>
+
 	<table class="table">
 
 		<tr>
