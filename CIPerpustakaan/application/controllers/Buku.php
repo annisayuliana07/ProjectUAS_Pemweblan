@@ -22,16 +22,19 @@ class Buku extends CI_Controller
 
 
 	public function __construct()
-    {
+  	{
         parent::__construct();
         $this->load->helper(array('form', 'url','html'));//pendefinisian helper form lebih dari satu
 		$this->load->library(array('form_validation','table','simple_login','session'));
 		$this->load->model(array('Buku_Model','Kategori_Model'));
 		$this->load->database();
+
+
 	}
 	
 	 public function index()
 	{
+
 		$data['buku'] = $this->db->get('buku')->result_array();
 		$data['title'] = 'List Buku';
 		$this->load->view('templates/header', $data);
