@@ -15,10 +15,11 @@ class Simple_login
 		if ($query->num_rows() == 1) {
 			$row 	= $this->CI->db->query('SELECT username FROM admin where username = "' . $username . '"');
 			$admin 	= $row->row();
-			$usename 	= $admin->usename;
+
+			$username 	= $admin->username;
 			$this->CI->session->set_userdata('username', $username);
 			$this->CI->session->set_userdata('id_login', uniqid(rand()));
-			$this->CI->session->set_userdata('status', "login");
+
 			redirect('home'); //redirect ke controller
 		} else {
 			$this->CI->session->set_flashdata('sukses', 'Oops... Username/password salah');

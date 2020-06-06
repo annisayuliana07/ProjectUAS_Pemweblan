@@ -1,11 +1,13 @@
 <html>
 
 <head>
+
 	<title>Detail Peminjaman</title>
 </head>
 
 <body>
 	<h4>Detail Peminjaman</h4>
+
 
 	<table class="table">
 

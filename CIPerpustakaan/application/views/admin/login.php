@@ -50,9 +50,8 @@
                                             <?php echo form_error('username', '<div class="text-danger small ml-3">', '</div>') ?>
                                         </div>
 
-                                        <button class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </button>
+                                        <input type="submit" name="submit" id="submit" value="Login"  class="btn btn-primary btn-user btn-block">
+                                            
 
                                     </form>
 

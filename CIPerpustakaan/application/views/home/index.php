@@ -1,4 +1,6 @@
 <!-- Begin Page Content -->
+<?php $this->simple_login->cek_login(); ?>
+
 <div class="container-fluid">
     <div class="alert alert-success" role="alert">
         <i class="fas fa-columns"></i> Tugas UAS Pemweb TIA Kelompok 2 '18
@@ -42,3 +44,4 @@
 
 </div>
 <!-- End of Main Content -->
+

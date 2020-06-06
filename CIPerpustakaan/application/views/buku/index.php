@@ -1,3 +1,6 @@
+
+<?php $this->simple_login->cek_login(); ?>
+
 <?php
 $query = $this->Buku_Model->get_join();
 foreach ($query->result() as $row) {
@@ -25,6 +28,7 @@ $data['tabel'] = $this->table->generate();
     </thead>
     <tbody>
 
+
 		<?php
 		$count = 0;
 		foreach ($query->result() as $row) :
@@ -43,6 +47,7 @@ $data['tabel'] = $this->table->generate();
                     <a href="<?= base_url('buku/delete/' . $row->id_buku) ?>" class="badge badge-danger">delete</a>
                 </td>
             </tr>
+
         <?php endforeach; ?>
     </tbody>
 </table>

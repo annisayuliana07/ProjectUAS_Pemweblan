@@ -1,3 +1,5 @@
+<?php $this->simple_login->cek_login(); ?>
+
 <?php
 $query = $this->Peminjaman_Model->get_join();
 foreach ($query->result() as $row) {
